@@ -1,0 +1,18 @@
+{
+  "skills": [
+    "Python", "Java", "C++", "SQL", "JavaScript",
+    "HTML", "CSS", "Machine Learning", "Data Analysis",
+    "Django", "Flask", "React", "Node.js", "Deep Learning",
+    "Natural Language Processing", "Artificial Intelligence",
+    "Generative AI", "TensorFlow", "PyTorch"
+  ],
+  "synonyms": {
+    "ML": "Machine Learning",
+    "DL": "Deep Learning",
+    "JS": "JavaScript",
+    "NLP": "Natural Language Processing",
+    "AI": "Machine Learning",
+    "GEN AI": "Generative AI",
+    "GENAI": "Generative AI"
+  }
+}

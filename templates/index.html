@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Resume Analyzer - Smart Career Matching</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="background-blur"></div>
+  
+  <header class="header">
+    <div class="header-content">
+      <div class="logo-section">
+        <i class="fas fa-robot"></i>
+        <h1>Resume Analyzer</h1>
+      </div>
+      <p class="tagline">Powered by AI • Match Your Skills with Opportunities</p>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <div class="upload-section">
+      <div class="card upload-card">
+        <div class="card-header">
+          <h2>Analyze Your Resume</h2>
+          <p>Upload your resume and job description to get instant insights</p>
+        </div>
+        
+        <form action="/analyze" method="post" enctype="multipart/form-data" class="form-modern">
+          <div class="form-group">
+            <label for="cv-file" class="label-text">
+              <i class="fas fa-file-upload"></i> Select Resume (PDF or DOCX)
+            </label>
+            <input type="file" id="cv-file" name="cv_file" accept=".pdf,.docx" required>
+            <span class="file-hint">Only PDF and DOCX files supported</span>
+          </div>
+
+          <div class="form-group">
+            <label for="job-desc" class="label-text">
+              <i class="fas fa-briefcase"></i> Job Description Keywords
+            </label>
+            <textarea id="job-desc" name="job_description" placeholder="Enter job keywords\nExample: Python, SQL, Machine Learning, AWS" required></textarea>
+            <span class="file-hint">Separate keywords with commas or line breaks</span>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-wand-magic-sparkles"></i>
+            Analyze Resume
+          </button>
+        </form>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-icon"><i class="fas fa-brain"></i></div>
+          <h4>AI-Powered</h4>
+          <p>Advanced machine learning analysis</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
+          <h4>Skill Matching</h4>
+          <p>Get precise match score instantly</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
+          <h4>Smart Tips</h4>
+          <p>Actionable suggestions to improve</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 AI Resume Analyzer. Analyze smart, land better.</p>
+  </footer>
+</body>
+</html>

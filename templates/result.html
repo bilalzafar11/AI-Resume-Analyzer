@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analysis Results - AI Resume Analyzer</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="background-blur"></div>
+  
+  <header class="header">
+    <div class="header-content">
+      <div class="logo-section">
+        <i class="fas fa-robot"></i>
+        <h1>Resume Analyzer</h1>
+      </div>
+      <p class="tagline">Your Detailed Analysis Report</p>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <div class="results-section">
+      
+      <!-- Score Card -->
+      <div class="card score-card">
+        <div class="score-display">
+          <div class="score-circle" data-score="{{ score }}">
+            <span class="score-percentage">{{ score }}%</span>
+          </div>
+          <div class="score-text">
+            <h2>Match Score</h2>
+            <p id="score-message"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job Details -->
+      <div class="card details-card">
+        <div class="section-header">
+          <i class="fas fa-file-alt"></i>
+          <h3>Resume Information</h3>
+        </div>
+        <div class="details-grid">
+          <div class="detail-item">
+            <label>Uploaded File</label>
+            <p>{{ filename }}</p>
+          </div>
+          <div class="detail-item">
+            <label>Job Description</label>
+            <p>{{ job_description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills Analysis -->
+      <div class="card">
+        <div class="section-header">
+          <i class="fas fa-star"></i>
+          <h3>Skills Analysis</h3>
+        </div>
+        
+        <div class="skills-section">
+          <div class="skills-subsection">
+            <h4><i class="fas fa-check-circle"></i> Detected Skills</h4>
+            <div class="skills-list detected-skills">
+              {% for skill in skills %}
+                <span class="skill-tag skill-found">{{ skill }}</span>
+              {% endfor %}
+            </div>
+          </div>
+
+          {% if missing_skills %}
+            <div class="skills-subsection">
+              <h4><i class="fas fa-exclamation-circle"></i> Missing Skills</h4>
+              <div class="skills-list missing-skills">
+                {% for skill in missing_skills %}
+                  <span class="skill-tag skill-missing">{{ skill }}</span>
+                {% endfor %}
+              </div>
+            </div>
+          {% else %}
+            <div class="empty-state">
+              <i class="fas fa-trophy"></i>
+              <p>Perfect! You have all required skills.</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Detailed Match Report -->
+      <div class="card match-report-card">
+        <div class="section-header">
+          <i class="fas fa-clipboard-list"></i>
+          <h3>Detailed Skill Requirement Report</h3>
+        </div>
+        <div class="match-report">
+          <table class="match-table">
+            <thead>
+              <tr>
+                <th>Required Skill</th>
+                <th>Status</th>
+                <th>Your Level</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for skill_name, is_matched in breakdown.items() %}
+              <tr class="match-row {% if is_matched %}matched{% else %}not-matched{% endif %}">
+                <td class="skill-name">{{ skill_name }}</td>
+                <td class="status-cell">
+                  {% if is_matched %}
+                    <span class="status-badge matched">
+                      <i class="fas fa-check-circle"></i> Matched
+                    </span>
+                  {% else %}
+                    <span class="status-badge missing">
+                      <i class="fas fa-times-circle"></i> Missing
+                    </span>
+                  {% endif %}
+                </td>
+                <td class="level-cell">
+                  {% if is_matched %}
+                    <span class="level-indicator">Found in Resume</span>
+                  {% else %}
+                    <span class="level-indicator missing-text">Not Found</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- AI Suggestions -->
+      <div class="card suggestions-card">
+        <div class="section-header">
+          <i class="fas fa-lightbulb"></i>
+          <h3>AI Suggestions</h3>
+        </div>
+        <div class="suggestions-content">
+          <pre id="suggestions-text">{{ suggestions }}</pre>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <a href="/" class="btn-primary">
+          <i class="fas fa-arrow-left"></i> Analyze Another Resume
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 AI Resume Analyzer. Analyze smart, land better.</p>
+  </footer>
+
+  <script>
+    // Display professional score message
+    const scoreElement = document.querySelector('.score-circle');
+    const score = parseInt(scoreElement.getAttribute('data-score')) || 0;
+    const messageElement = document.getElementById('score-message');
+    
+    let message = '';
+    if (score === 100) {
+      message = '🎉 Perfect Match! You have all required skills.';
+    } else if (score >= 80) {
+      message = '✨ Excellent! You meet most requirements.';
+    } else if (score >= 60) {
+      message = '👍 Good! You have significant skill overlap.';
+    } else if (score >= 40) {
+      message = '📈 Fair! Consider developing additional skills.';
+    } else if (score > 0) {
+      message = '💡 Developing! Focus on the missing skills.';
+    } else {
+      message = '⚠️ No matching skills found. Review job description.';
+    }
+    
+    if (messageElement) {
+      messageElement.textContent = message;
+    }
+  </script>
+
+</body>
+</html>
